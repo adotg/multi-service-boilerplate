@@ -1,0 +1,2 @@
+DATA Service is the data layer.
+Has access to Database Server and Cache. This makes the storage + caching layer transparent to all the other layers.

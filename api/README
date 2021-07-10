@@ -1,0 +1,2 @@
+API Service is more like a router.
+This essentially talks to DATA Service and logs acess information to cache.

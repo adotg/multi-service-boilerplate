@@ -1,0 +1,2 @@
+UI Service hosts the UI files using a dev server.
+This just talks to the API Server.
