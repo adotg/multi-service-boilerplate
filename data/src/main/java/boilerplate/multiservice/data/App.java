@@ -1,15 +1,17 @@
-package boilerplate.multiservice;
+package boilerplate.multiservice.data;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication
 @Slf4j
+@EnableCaching
 public class App {
     private Environment springEnv;
 

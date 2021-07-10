@@ -6,6 +6,7 @@
         <webroots />
         <sourceRoots>
           <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
         </sourceRoots>
       </configuration>
     </facet>
@@ -13,7 +14,9 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="entityManagerFactory" value="41c53d8c-3ced-45f9-8ab9-a81f14707a66" />
+        </datasource-mapping>
         <naming-strategy-map />
       </configuration>
     </facet>
@@ -121,5 +124,19 @@
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.23" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.18" level="project" />
     <orderEntry type="library" name="Maven: org.javatuples:javatuples:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-data-redis:2.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-redis:2.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-keyvalue:2.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-oxm:5.3.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context-support:5.3.5" level="project" />
+    <orderEntry type="library" name="Maven: io.lettuce:lettuce-core:6.0.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-common:4.1.60.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.60.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.60.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.1.60.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.60.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.60.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.projectreactor:reactor-core:3.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.reactivestreams:reactive-streams:1.0.3" level="project" />
   </component>
 </module>

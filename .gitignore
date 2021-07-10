@@ -1,3 +1,4 @@
 .idea
 data/**/target
 env.dev
+env.idea
