@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"io/ioutil"
@@ -54,14 +55,23 @@ func (serv *Service) updateLastAccessTime(userKey string) {
 }
 
 func (serv *Service) get(w http.ResponseWriter, r *http.Request) {
+	env := GetEnvVars()
 	pathParams := mux.Vars(r)
 	key := pathParams["key"]
 	userKey := r.Header.Get("user_key")
 	L.Infof("/get is called with %s for user %s", key, userKey)
 
-	// TODO call data service from here
+	// call data service from here
+	res, err := http.Get("http://" + env.DataServiceHost + ":" + env.DataServicePort + "/key/" + key)
+	if err != nil {
+		L.Panicf("Not able to do GET to data service. Error=%s", err.Error())
+	}
+	resFromDataService, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		L.Panicf("Not able to do parse response from data service. Error=%s", err.Error())
+	}
 
-	resp := APIResponse{serv.getLastAccessTime(userKey), "value"}
+	resp := APIResponse{serv.getLastAccessTime(userKey), string(resFromDataService)}
 	jsonStr, err := json.Marshal(resp)
 	if err != nil {
 		L.Errorf("/get error %s", err.Error())
@@ -86,15 +96,25 @@ func (serv *Service) set(w http.ResponseWriter, r *http.Request) {
 	}
 	L.Infof("/set is called with %s with value %s for user %s", key, body, userKey)
 
-	// TODO call the dataservice api here
+	// call the dataservice api here
+	res, err := http.Post("http://"+env.DataServiceHost+":"+env.DataServicePort+"/key/"+key, "text/plain",
+		bytes.NewBuffer(body))
+	if err != nil {
+		L.Panicf("Not able to do GET to data service. Error=%s", err.Error())
+	}
+	resFromDataService, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		L.Panicf("Not able to do parse response from data service. Error=%s", err.Error())
+	}
 
-	resp := APIResponse{-1, string(body)}
+	resp := APIResponse{serv.getLastAccessTime(userKey), string(resFromDataService)}
 	jsonStr, err := json.Marshal(resp)
 	if err != nil {
 		L.Errorf("/get error %s", err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
+	serv.updateLastAccessTime(userKey)
 	L.Infof("/set responds with %s", jsonStr)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
