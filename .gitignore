@@ -3,3 +3,7 @@ data/**/target
 env.dev
 env.idea
 bin
+.classpath
+.factorypath
+.project
+.settings/
