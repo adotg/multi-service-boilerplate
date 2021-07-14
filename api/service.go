@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -140,9 +141,14 @@ func (serv *Service) Init() {
 func (serv *Service) Run() {
 	env := GetEnvVars()
 	go func() {
+
+		headersOK := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "user_key"})
+		originsOK := handlers.AllowedOrigins([]string{"*"})
+		methodsOK := handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS", "DELETE", "PUT"})
+
 		serv.Server = &http.Server{
 			Addr:    ":" + env.ServerPort,
-			Handler: serv.Router,
+			Handler: handlers.CORS(headersOK, originsOK, methodsOK)(serv.Router),
 		}
 		L.Infof("Listening to :%s", env.ServerPort)
 

@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/go-redis/redis/v8 v8.11.0
+	github.com/gorilla/handlers v1.5.1
 	github.com/gorilla/mux v1.8.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/zput/zxcTool v1.3.6

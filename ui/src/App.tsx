@@ -1,25 +1,68 @@
 import React from "react";
-import logo from "./logo.svg";
+import axios, { AxiosRequestConfig } from "axios";
 import "./App.css";
 
 // function App() {}
 
-class App extends React.Component<{}, { keyText: string; keyValue: string }> {
+class App extends React.Component<{}, { keyText: string; keyValue: string; lastAccessTime: number }> {
   constructor(props: React.Props<any>, ctx: React.Context<any>) {
     super(props, ctx);
 
     this.state = {
       keyText: "",
       keyValue: "",
+      lastAccessTime: -1,
     };
   }
 
-  onSet() {
+  async onSet() {
     console.log("set", this.state.keyText, this.state.keyValue);
+    if (this.state.keyText.trim() === "") {
+      alert("key is mandatory");
+      return;
+    }
+
+    if (this.state.keyValue.trim() === "") {
+      alert("value is mandatory");
+      return;
+    }
+
+    const resp = await axios({
+      method: "post",
+      // TODO take this from a variable?
+      url: `http://localhost:8081/set/${this.state.keyText}`,
+      data: this.state.keyValue,
+      headers: {
+        user_key: 123,
+        "Content-Type": "text/plain",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+    });
+
+    const { data } = resp;
+    this.setState({ lastAccessTime: data.lastAccessTime, keyValue: data.data });
+    console.log("Set value", data);
   }
 
-  onGet() {
-    console.log("get", this.state.keyText);
+  async onGet() {
+    if (this.state.keyText.trim() === "") {
+      alert("key is mandatory");
+      return;
+    }
+
+    const resp = await axios({
+      method: "get",
+      // TODO take this from a variable?
+      url: `http://localhost:8081/get/${this.state.keyText}`,
+      headers: {
+        user_key: 123,
+        "Content-Type": "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+    });
+
+    const { data } = resp;
+    this.setState({ lastAccessTime: data.lastAccessTime, keyValue: data.data });
   }
 
   render() {
@@ -37,6 +80,9 @@ class App extends React.Component<{}, { keyText: string; keyValue: string }> {
           <button id="get_btn" onClick={this.onGet.bind(this)}>
             Get
           </button>
+          <div>
+            LastAccessTime: <span>{new Date(this.state.lastAccessTime * 1000).toString()}</span>
+          </div>
         </header>
       </div>
     );
