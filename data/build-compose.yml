@@ -1,0 +1,10 @@
+version: "3.6"
+services:
+  nebula:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - deploy_env=${DEPLOY_ENV}
+        - service_name=${SERVICE_NAME}
+    image: ${REPO}/${SERVICE_NAME}:${DEPLOY_ENV}${TAG_SUFFIX}

@@ -27,6 +27,9 @@ public class App {
     @Bean
     ApplicationRunner applicationRunner()  {
         return args -> {
+            log.warn("Deploy Env = {}", System.getenv("DEPLOY_ENV"));
+            log.warn("Service Name = {}", System.getenv("SERVICE_NAME"));
+
             String[] profiles = springEnv.getDefaultProfiles();
             for (String profile : profiles) log.warn("[Default Profiles] {}", profile);
 

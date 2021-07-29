@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# This is equivalent of the local comment to make the env up and running
+
+
+function delete_source_if_present() {
+    if [ -f source.zip ]; then
+        rm source.zip
+    fi
+}
+
+delete_source_if_present
+echo "Pre clean up"
+
+git archive -o source.zip HEAD
+echo "Packing"
+aws s3 cp source.zip s3://constellation-prior/tmp/source.zip
+
+delete_source_if_present
+echo "Post clean up"
