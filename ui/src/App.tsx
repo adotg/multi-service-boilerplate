@@ -75,10 +75,10 @@ class App extends React.Component<{}, { keyText: string; keyValue: string; lastA
           <textarea value={this.state.keyValue} onChange={(e) => this.setState({ keyValue: e.target.value })} />
           <br />
           <button id="set_btn" onClick={this.onSet.bind(this)}>
-            Set
+            Set (edited)
           </button>
           <button id="get_btn" onClick={this.onGet.bind(this)}>
-            Get
+            Get (edited)
           </button>
           <div>
             LastAccessTime: <span>{new Date(this.state.lastAccessTime * 1000).toString()}</span>

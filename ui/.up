@@ -12,9 +12,9 @@ function delete_source_if_present() {
 delete_source_if_present
 echo "Pre clean up"
 
-git archive -o source.zip HEAD
+git archive -o source.tar HEAD
 echo "Packing"
-aws s3 cp source.zip s3://constellation-prior/tmp/source.zip
+aws s3 cp source.tar s3://constellation-prior/tmp/source.tar
 
 delete_source_if_present
 echo "Post clean up"
