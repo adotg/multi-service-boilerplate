@@ -83,6 +83,9 @@ class App extends React.Component<{}, { keyText: string; keyValue: string; lastA
           <div>
             LastAccessTime: <span>{new Date(this.state.lastAccessTime * 1000).toString()}</span>
           </div>
+          <hr />
+          <div>env {process.env.NODE_ENV}</div>
+          <div>service url {process.env.REACT_APP_SERVICE_URL}</div>
         </header>
       </div>
     );
