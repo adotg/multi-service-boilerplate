@@ -10,6 +10,6 @@ COPY . .
 
 env REACT_APP_SERVICE_URL http://some.internal.service.msb.com
 
-RUN yarn build
+# RUN yarn build
 
 CMD ["yarn", "start"]

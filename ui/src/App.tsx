@@ -66,6 +66,7 @@ class App extends React.Component<{}, { keyText: string; keyValue: string; lastA
   }
 
   render() {
+    console.log(process.env);
     return (
       <div className="App">
         <header className="App-header">
@@ -83,9 +84,12 @@ class App extends React.Component<{}, { keyText: string; keyValue: string; lastA
           <div>
             LastAccessTime: <span>{new Date(this.state.lastAccessTime * 1000).toString()}</span>
           </div>
-          <hr />
-          <div>env {process.env.NODE_ENV}</div>
-          <div>service url {process.env.REACT_APP_SERVICE_URL}</div>
+          <div>---</div>
+          <div>env = {process.env.NODE_ENV}</div>
+          <div>service url = {process.env.REACT_APP_SERVICE_URL}</div>
+          <div>---</div>
+          <div>from outside ENV1 = {process.env.REACT_APP_ENV1}</div>
+          <div>from outside SECRET1 = {process.env.REACT_APP_SECRET1}</div>
         </header>
       </div>
     );
