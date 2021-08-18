@@ -1,0 +1,13 @@
+namespace: main-app
+
+type: service
+
+name: ui
+
+source: ../Dockerfile
+
+dependencies:
+  service:
+    - api
+
+

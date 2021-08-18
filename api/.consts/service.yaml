@@ -1,0 +1,10 @@
+# INFO This is not namespace of k8s.
+namespace: main-app 
+
+type: service
+
+name: api
+
+context: ..
+
+source: ./Dockerfile
